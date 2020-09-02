@@ -4,20 +4,20 @@ function checkSubSudoku(matrix) {
 return { isValid: function () {
     
     //Check wrong size matrix
-    if (matrix[0].length != matrix.length) return "INVALID";
+    if (matrix[0].length != matrix.length) return false;
     
     //Verify unique number arrays along horizontal line
     for (let i = 0; i < matrix.length; i++)
         for (let j = 1; j <= matrix[i].length; j++)
     //If missing values, mark as invalid
-    if (matrix[i].indexOf(j) < 0) return "INVALID";
+    if (matrix[i].indexOf(j) < 0) return false;
     
     //Verify unique number arrays along vertical line
     for (let a = 0, temp = []; a < matrix[0].length; a++, temp = []) {
       for (let b = 0; b < matrix.length; b++) temp.push(matrix[b][a])
       for (let c = 1; c <= matrix[0].length; c++)
    // If missing values, mark as invalid
-      if (temp.indexOf(c) < 0) return "INVALID";
+      if (temp.indexOf(c) < 0) return false;
     }
     
     //Verify unique number smaller boxes
@@ -29,12 +29,12 @@ return { isValid: function () {
         // If missing values, mark as invalid
         if ((y + 1) % Math.sqrt(matrix[0].length) === 0 && y > 0) {
           for (let z = 1; z <= matrix[0].length; z++)
-            if (temp.indexOf(z) < 0) return "INVALID";
+            if (temp.indexOf(z) < 0) return false;
           temp = [];
         }
       }
     }
-    return "VALID";
+    return true;
     }
   }
 }
